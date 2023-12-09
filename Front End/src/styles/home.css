@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+}
+
+.directorsDiv {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 62px;
+    padding: 38px;
+}
+
+.directors-lista-div {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 200px;
+    height: 338px;
+}
+
+.directorCover {
+    width: 200px;
+    height: 275px;
+}
+
+.directorCover:hover {
+    scale: 0.98;
+    border: 2px solid #fff;
+    box-shadow: 0px 10px 10px #fff;
+}
+
+.directors-lista-div:hover{
+    scale: 0.98;
+    transition-duration: 0.2s;
+}
+
+.directorName {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    font-style: italic;
+    height: auto;
+}
