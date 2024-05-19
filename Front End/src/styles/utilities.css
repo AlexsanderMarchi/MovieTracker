@@ -1,0 +1,11 @@
+.container-content {
+  margin: auto;
+  width: 80vw;
+}
+
+.flex-row-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}

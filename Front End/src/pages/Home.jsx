@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
+import Footer from "../components/footer";
 import tarantino from "../assets/tarantino.jpg";
 import guyRitchie from "../assets/guyRitchie.jpg";
 import nolan from "../assets/nolan.jpg";
@@ -25,9 +26,8 @@ function Home() {
   return (
     <>
       <div className="main-container">
-        <div className="container-content">
-          <Header />
-        </div>
+        <Header />
+        <Footer />
       </div>
       {/* <div className="container">
         <div className="directorsDiv">
