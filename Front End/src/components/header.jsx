@@ -4,14 +4,14 @@ import "../styles/utilities.css";
 import movieTrackerTitle from "../assets/movieTrackerTitle.jpg";
 
 function Header() {
-  const [nameSearched, setNameSearched] = useState({}); //actual variables for seach
+  const [nameSearched, setNameSearched] = useState(""); //actual variables for seach
   const [movie, setMovie] = useState({});
   const name = "run"; //test
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?t=${name}&apikey=100f4720`;
+        let api = `https://www.omdbapi.com/?t=${nameSearched}&apikey=100f4720`;
 
         let response = await fetch(api);
         const data = await response.json();
@@ -49,12 +49,33 @@ function Header() {
               <div className="detalhes-box">
                 <img className="detalhes-img" src={movie.Poster} />
                 <div className="description">
-                  <h2 className="detalhes"> {movie.Title}</h2>
-                  <p className="detalhes"> Plot: {movie.Plot}</p>
-                  <p className="detalhes"> Genre: {movie.Genre}</p>
-                  <p className="detalhes"> Director: {movie.Director}</p>
-                  <p className="detalhes"> Actor: {movie.Actors}</p>
-                  <p className="detalhes"> Writer: {movie.Writer}</p>
+                  {movie.Title && (
+                    <h2 className="detalhes">
+                      {" "}
+                      {movie.Title} ({movie.Year})
+                    </h2>
+                  )}
+                  <p className="detalhes"> {movie.Plot}</p>
+                  {movie.Genre && (
+                    <p className="detalhes">
+                      <span>Genre:</span> {movie.Genre}
+                    </p>
+                  )}
+                  {movie.Director && (
+                    <p className="detalhes">
+                      <span>Director:</span> {movie.Director}
+                    </p>
+                  )}
+                  {movie.Actors && (
+                    <p className="detalhes">
+                      <span>Actor:</span> {movie.Actors}
+                    </p>
+                  )}
+                  {movie.Writer && (
+                    <p className="detalhes">
+                      <span>Writer:</span> {movie.Writer}
+                    </p>
+                  )}
                 </div>
               </div>
             )}

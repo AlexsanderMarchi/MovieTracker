@@ -1,2 +1,26 @@
-.footer-content {
+#footer-main {
+  background-color: #131313;
+}
+.footer-content h1 {
+  visibility: hidden;
+}
+.footer-content .social {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.footer-content .social h3 {
+  color: #bbb;
+}
+.footer-content .social .contact {
+  height: 1.6rem;
+  width: 1.3rem;
+  color: #6c8100;
+}
+.footer-content .social .contact:hover {
+  color: #98b500;
+}
+.footer-content .social a {
+  display: flex;
+  align-items: center;
 }
