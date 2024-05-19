@@ -48,13 +48,13 @@ function Header() {
             {movie && (
               <div className="detalhes-box">
                 <img className="detalhes-img" src={movie.Poster} />
-                <div className="">
-                  <h2 className="detalhes"> Title: {movie.Title}</h2>
-                  <h2 className="detalhes"> Plot: {movie.Plot}</h2>
-                  <h2 className="detalhes"> Genre: {movie.Genre}</h2>
-                  <h2 className="detalhes"> Director: {movie.Director}</h2>
-                  <h2 className="detalhes"> Actor: {movie.Actors}</h2>
-                  <h2 className="detalhes"> Writer: {movie.Writer}</h2>
+                <div className="description">
+                  <h2 className="detalhes"> {movie.Title}</h2>
+                  <p className="detalhes"> Plot: {movie.Plot}</p>
+                  <p className="detalhes"> Genre: {movie.Genre}</p>
+                  <p className="detalhes"> Director: {movie.Director}</p>
+                  <p className="detalhes"> Actor: {movie.Actors}</p>
+                  <p className="detalhes"> Writer: {movie.Writer}</p>
                 </div>
               </div>
             )}
