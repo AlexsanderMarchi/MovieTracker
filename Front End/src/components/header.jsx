@@ -5,14 +5,15 @@ import movieTrackerTitle from "../assets/movieTrackerTitle.jpg";
 
 function Header() {
   const [nameSearched, setNameSearched] = useState(""); //actual variables for seach
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [imdbID, setImdbID] = useState(null);
   const [movie, setMovie] = useState({});
-  const name = "run"; //test
+  const name = "run"; //test;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?t=${nameSearched}&apikey=100f4720`;
-
+        let api = `https://www.omdbapi.com/?s=${nameSearched}&apikey=100f4720`;
         let response = await fetch(api);
         const data = await response.json();
         setMovie(data);
@@ -25,19 +26,59 @@ function Header() {
     fetchData();
   }, [nameSearched]);
 
+  useEffect(() => {
+    const fetchMovieSelectedData = async () => {
+      try {
+        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`;
+        let response = await fetch(api);
+        const data = await response.json();
+        setSelectedMovie(data);
+        console.log("SELECTED MOVIE: ", data);
+      } catch (error) {
+        console.error("Deu ruim: ", error);
+      }
+    };
+
+    if (imdbID) {
+      fetchMovieSelectedData();
+    }
+  }, [imdbID]);
+
+  const clickOnMovie = (imdbID) => {
+    setImdbID(imdbID);
+  };
+
   return (
     <header id="header-main">
       <div className="navbar-container">
         <div className="container-content">
           <nav className="navbar flex-row-content">
             <img src={movieTrackerTitle}></img>
-            <input
-              type="text"
-              placeholder="Pesquisar por nome"
-              value={nameSearched}
-              onChange={(e) => setNameSearched(e.target.value)}
-              className="pesquisa"
-            />
+            <div className="input-container">
+              <input
+                type="text"
+                placeholder="Pesquisar por nome"
+                value={nameSearched}
+                onChange={(e) => setNameSearched(e.target.value)}
+                className="pesquisa"
+              />
+              <div className="input-movies-container">
+                <ul>
+                  {Object.values(movie.Search || {}).map((film) => (
+                    <li
+                      //key={film.id}
+                      onClick={() => clickOnMovie(film.imdbID)}
+                      className="searched-movie-container"
+                    >
+                      <img src={film.Poster} />
+                      <p className="searched-name">
+                        {film.Title} ({film.Year})
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
             <h2>Login</h2>
           </nav>
         </div>
@@ -45,35 +86,35 @@ function Header() {
       <div className="showcase">
         <div className="container-content">
           <div className="movie-content">
-            {movie && (
+            {selectedMovie && (
               <div className="detalhes-box">
-                <img className="detalhes-img" src={movie.Poster} />
+                <img className="detalhes-img" src={selectedMovie.Poster} />
                 <div className="description">
-                  {movie.Title && (
+                  {selectedMovie.Title && (
                     <h2 className="detalhes">
                       {" "}
-                      {movie.Title} ({movie.Year})
+                      {selectedMovie.Title} ({selectedMovie.Year})
                     </h2>
                   )}
-                  <p className="detalhes"> {movie.Plot}</p>
-                  {movie.Genre && (
+                  <p className="detalhes"> {selectedMovie.Plot}</p>
+                  {selectedMovie.Genre && (
                     <p className="detalhes">
-                      <span>Genre:</span> {movie.Genre}
+                      <span>Genre:</span> {selectedMovie.Genre}
                     </p>
                   )}
-                  {movie.Director && (
+                  {selectedMovie.Director && (
                     <p className="detalhes">
-                      <span>Director:</span> {movie.Director}
+                      <span>Director:</span> {selectedMovie.Director}
                     </p>
                   )}
-                  {movie.Actors && (
+                  {selectedMovie.Actors && (
                     <p className="detalhes">
-                      <span>Actor:</span> {movie.Actors}
+                      <span>Actor:</span> {selectedMovie.Actors}
                     </p>
                   )}
-                  {movie.Writer && (
+                  {selectedMovie.Writer && (
                     <p className="detalhes">
-                      <span>Writer:</span> {movie.Writer}
+                      <span>Writer:</span> {selectedMovie.Writer}
                     </p>
                   )}
                 </div>
