@@ -17,10 +17,11 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setMovie(data);
-        console.log(data);
+        console.log("searched", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
+      console.log("Movie", movie.Response);
     };
 
     fetchData();
@@ -41,6 +42,7 @@ function Header() {
 
     if (imdbID) {
       fetchMovieSelectedData();
+      setNameSearched("");
     }
   }, [imdbID]);
 
@@ -53,30 +55,34 @@ function Header() {
       <div className="navbar-container">
         <div className="container-content">
           <nav className="navbar flex-row-content">
-            <img src={movieTrackerTitle}></img>
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="Pesquisar por nome"
-                value={nameSearched}
-                onChange={(e) => setNameSearched(e.target.value)}
-                className="pesquisa"
-              />
-              <div className="input-movies-container">
-                <ul>
-                  {Object.values(movie.Search || {}).map((film) => (
-                    <li
-                      //key={film.id}
-                      onClick={() => clickOnMovie(film.imdbID)}
-                      className="searched-movie-container"
-                    >
-                      <img src={film.Poster} />
-                      <p className="searched-name">
-                        {film.Title} ({film.Year})
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+            <div className="flex-row-content">
+              <img src={movieTrackerTitle}></img>
+              <div className="input-container">
+                <input
+                  type="text"
+                  placeholder="Pesquisar por nome"
+                  value={nameSearched}
+                  onChange={(e) => setNameSearched(e.target.value)}
+                  className="pesquisa"
+                />
+                {movie.Response != "False" && (
+                  <div className="input-movies-container">
+                    <ul>
+                      {Object.values(movie.Search || {}).map((film) => (
+                        <li
+                          //key={film.id}
+                          onClick={() => clickOnMovie(film.imdbID)}
+                          className="searched-movie-container"
+                        >
+                          <img src={film.Poster} />
+                          <p className="searched-name">
+                            {film.Title} ({film.Year})
+                          </p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
             <h2>Login</h2>
