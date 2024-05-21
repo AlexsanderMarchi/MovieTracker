@@ -60,7 +60,7 @@ function Header() {
               <div className="input-container">
                 <input
                   type="text"
-                  placeholder="Pesquisar por nome"
+                  placeholder="Digite um nome para pesquisa"
                   value={nameSearched}
                   onChange={(e) => setNameSearched(e.target.value)}
                   className="pesquisa"

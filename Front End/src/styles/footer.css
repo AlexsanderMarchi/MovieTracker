@@ -1,5 +1,9 @@
 #footer-main {
   background-color: #131313;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .footer-content h1 {
   visibility: hidden;
@@ -23,4 +27,13 @@
 .footer-content .social a {
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 800px) {
+  .flex-row-content {
+    justify-content: center;
+  }
+  .footer-content h1 {
+    display: none;
+  }
 }
