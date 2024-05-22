@@ -6,6 +6,7 @@ import movieTrackerTitle from "../assets/movieTrackerTitle.jpg";
 function Header() {
   const [nameSearched, setNameSearched] = useState(""); //actual variables for seach
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [suggestionsMovies, setSuggestionsMovies] = useState(null);
   const [imdbID, setImdbID] = useState(null);
   const [movie, setMovie] = useState({});
   const name = "run"; //test;
@@ -17,11 +18,11 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setMovie(data);
-        console.log("searched", data);
+        // console.log("searched", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
-      console.log("Movie", movie.Response);
+      // console.log("Movie", movie.Response);
     };
 
     fetchData();
@@ -34,7 +35,7 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setSelectedMovie(data);
-        console.log("SELECTED MOVIE: ", data);
+        // console.log("SELECTED MOVIE: ", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -43,10 +44,12 @@ function Header() {
     if (imdbID) {
       fetchMovieSelectedData();
       setNameSearched("");
+      console.log(suggestionsMovies);
     }
   }, [imdbID]);
 
   const clickOnMovie = (imdbID) => {
+    setSuggestionsMovies(movie);
     setImdbID(imdbID);
   };
 
@@ -124,6 +127,30 @@ function Header() {
                     </p>
                   )}
                 </div>
+              </div>
+            )}
+          </div>
+          <div className="suggestions-container">
+            {suggestionsMovies && (
+              <div className="suggestions-list-container">
+                <ul>
+                  {Object.values(suggestionsMovies.Search || {}).map(
+                    (filmSugestion) => (
+                      <li
+                        //key={film.id}
+                        // onClick={() => clickOnMovie(filmSugestion.imdbID)}
+                        className="suggestion-movie-container"
+                      >
+                        <div className="poster-content">
+                          <img src={filmSugestion.Poster} />
+                          <p className="suggestion-name">
+                            {filmSugestion.Title} ({filmSugestion.Year})
+                          </p>
+                        </div>
+                      </li>
+                    )
+                  )}
+                </ul>
               </div>
             )}
           </div>

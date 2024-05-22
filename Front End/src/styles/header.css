@@ -124,6 +124,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 4rem;
 }
 
 #header-main .showcase * {
@@ -183,6 +184,70 @@
   .description
   > *:nth-child(2) {
   text-align: center;
+}
+
+/* ////////SUGESTIONS MOVIES SHOWCASE */
+.suggestions-container {
+  /* background-color: #d4ff00; */
+  height: 100%;
+  padding: 1px;
+  margin: 4rem 0rem 0 0;
+}
+.suggestions-container .suggestions-list-container ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  gap: 1rem;
+  padding: 2px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.suggestions-container .suggestions-list-container ul::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background: #181818;
+  border-radius: 10px;
+}
+
+.suggestions-container .suggestions-list-container ul::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
+.suggestions-container .suggestions-list-container ul li .poster-content {
+  background-color: #d4ff00;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+}
+.suggestions-container .suggestions-list-container ul li img {
+  width: 8rem;
+  /* max-height: 9.3rem; */
+}
+.suggestions-container .suggestions-list-container ul li img:hover {
+  filter: brightness(60%);
+}
+.suggestions-container .suggestions-list-container ul li img:hover,
+.suggestions-container
+  .suggestions-list-container
+  ul
+  li
+  .poster-content
+  .suggestion-name {
+  /* display: contents; */
+}
+.suggestions-container
+  .suggestions-list-container
+  ul
+  li
+  .poster-content
+  .suggestion-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-self: center;
+  display: none;
 }
 
 @media (max-width: 1024px) {
