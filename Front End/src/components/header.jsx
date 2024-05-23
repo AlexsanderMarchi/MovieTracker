@@ -4,10 +4,12 @@ import "../styles/utilities.css";
 import movieTrackerTitle from "../assets/movieTrackerTitle.jpg";
 
 function Header() {
-  const [nameSearched, setNameSearched] = useState(""); //actual variables for seach
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [suggestionsMovies, setSuggestionsMovies] = useState(null);
-  const [imdbID, setImdbID] = useState(null);
+  const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
+  const [selectedMovie, setSelectedMovie] = useState(null); //This take the movie you clicked and bring the data about it
+  const [suggestionsMovies, setSuggestionsMovies] = useState(null); //This show movies that are similar to selectedMovie
+  const [suggestedName, setSuggestedName] = useState("");
+  const [imdbID, setImdbID] = useState("");
+  const [title, setTitle] = useState(null);
   const [movie, setMovie] = useState({});
   const [scrolled, setScrolled] = useState(false);
   const name = "run"; //test;
@@ -27,6 +29,7 @@ function Header() {
     };
   }, []);
 
+  //SEARCHED MOVIE
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,29 +47,50 @@ function Header() {
     fetchData();
   }, [nameSearched]);
 
+  //SUGGESTED MOVIES
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        let api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
+        let response = await fetch(api);
+        const data = await response.json();
+        setSuggestionsMovies(data);
+        console.log("suggestion", suggestedName, data);
+      } catch (error) {
+        console.error("Deu ruim: ", error);
+      }
+    };
+    if (suggestedName != "") {
+      fetchSuggestions();
+    }
+  }, [suggestedName]);
+
+  //SELECTED MOVIE
   useEffect(() => {
     const fetchMovieSelectedData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`;
+        let api = `https://www.omdbapi.com/?t=${title}&i=${imdbID}&apikey=100f4720`;
         let response = await fetch(api);
         const data = await response.json();
         setSelectedMovie(data);
-        // console.log("SELECTED MOVIE: ", data);
+        console.log("SELECTED MOVIE: ", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
     };
 
-    if (imdbID) {
+    if (title) {
       fetchMovieSelectedData();
+      setSuggestionsMovies(title);
       setNameSearched("");
-      console.log(suggestionsMovies);
     }
-  }, [imdbID]);
+  }, [title, imdbID]);
 
-  const clickOnMovie = (imdbID) => {
-    setSuggestionsMovies(movie);
+  const clickOnMovie = (title, imdbID) => {
+    setTitle(title);
     setImdbID(imdbID);
+    setSuggestedName(title);
+    console.log(title, imdbID);
   };
 
   return (
@@ -87,18 +111,22 @@ function Header() {
                 {movie.Response != "False" && (
                   <div className="input-movies-container">
                     <ul>
-                      {Object.values(movie.Search || {}).map((film) => (
-                        <li
-                          //key={film.id}
-                          onClick={() => clickOnMovie(film.imdbID)}
-                          className="searched-movie-container"
-                        >
-                          <img src={film.Poster} />
-                          <p className="searched-name">
-                            {film.Title} ({film.Year})
-                          </p>
-                        </li>
-                      ))}
+                      {Object.values(movie.Search || {})
+                        .filter((film) => film.Poster !== "N/A")
+                        .map((film) => (
+                          <li
+                            //key={film.id}
+                            onClick={() =>
+                              clickOnMovie(film.Title, film.imdbID)
+                            }
+                            className="searched-movie-container"
+                          >
+                            <img src={film.Poster} />
+                            <p className="searched-name">
+                              {film.Title} ({film.Year})
+                            </p>
+                          </li>
+                        ))}
                     </ul>
                   </div>
                 )}
@@ -134,7 +162,7 @@ function Header() {
                   )}
                   {selectedMovie.Actors && (
                     <p className="detalhes">
-                      <span>Actor:</span> {selectedMovie.Actors}
+                      <span>Actor:</span> {selectedMovie.Actors};
                     </p>
                   )}
                   {selectedMovie.Writer && (
@@ -150,11 +178,17 @@ function Header() {
             {suggestionsMovies && (
               <div className="suggestions-list-container">
                 <ul>
-                  {Object.values(suggestionsMovies.Search || {}).map(
-                    (filmSugestion) => (
+                  {Object.values(suggestionsMovies.Search || {})
+                    .filter((filmSugestion) => filmSugestion.Poster !== "N/A")
+                    .map((filmSugestion) => (
                       <li
                         //key={film.id}
-                        // onClick={() => clickOnMovie(filmSugestion.imdbID)}
+                        onClick={() =>
+                          clickOnMovie(
+                            filmSugestion.Title,
+                            filmSugestion.imdbID
+                          )
+                        }
                         className="suggestion-movie-container"
                       >
                         <div className="poster-content">
@@ -164,8 +198,7 @@ function Header() {
                           </p>
                         </div>
                       </li>
-                    )
-                  )}
+                    ))}
                 </ul>
               </div>
             )}
