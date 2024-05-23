@@ -4,7 +4,10 @@
   height: 100%;
 }
 
+/* SECTION 1 -- NAVBAR */
 /* NAVBAR */
+/* container */
+
 #header-main .navbar-container {
   position: fixed;
   width: 100%;
@@ -13,6 +16,10 @@
   z-index: 11;
   background-color: transparent;
   transition: all 0.3s ease-in-out;
+}
+#header-main .navbar-container.scrolled {
+  background-color: #131313;
+  box-shadow: inset 0px 0px 2rem #1a1a1a;
 }
 #header-main .navbar-container:hover {
   background-color: #131313;
@@ -59,12 +66,14 @@
   border-bottom: 4px yellow solid;
 }
 
+/* NAVBAR */
 /* NAVBAR SEARCH BAR RESULTS BOX */
+
 .input-container {
   position: relative;
 }
 .input-container .input-movies-container {
-  height: 20vw;
+  height: 60vh;
   position: absolute;
   transform: translateY(2rem);
   top: 0px;
@@ -73,6 +82,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   cursor: pointer;
+  box-shadow: -10px 10px 2rem #060606;
 }
 .input-container .input-movies-container ul {
   list-style: none;
@@ -115,7 +125,9 @@
   border-radius: 10px;
 }
 
+/* SECTION 2 -- SHOWCASE */
 /* SHOWCASE */
+
 #header-main .showcase {
   background: url(/src/showcase.jpg) no-repeat center 25% / cover;
   min-height: 94.4vh;
@@ -141,7 +153,9 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
+/* SHOWCASE */
 /* SHOWCASE DESCRIPTION MOVIE */
+
 #header-main .showcase .movie-content {
   height: 100%;
   width: 100%;
@@ -186,6 +200,7 @@
   text-align: center;
 }
 
+/* SHOWCASE */
 /* ////////SUGESTIONS MOVIES SHOWCASE */
 .suggestions-container {
   /* background-color: #d4ff00; */
@@ -223,32 +238,50 @@
 }
 .suggestions-container .suggestions-list-container ul li img {
   width: 8rem;
-  /* max-height: 9.3rem; */
+  max-height: 13rem;
 }
-.suggestions-container .suggestions-list-container ul li img:hover {
-  filter: brightness(60%);
-}
-.suggestions-container .suggestions-list-container ul li img:hover,
-.suggestions-container
-  .suggestions-list-container
-  ul
-  li
-  .poster-content
-  .suggestion-name {
-  /* display: contents; */
-}
-.suggestions-container
-  .suggestions-list-container
-  ul
-  li
-  .poster-content
-  .suggestion-name {
+
+.suggestions-list-container ul li .poster-content .suggestion-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
   position: absolute;
   top: 0;
   left: 0;
   align-self: center;
-  display: none;
+  font-size: 1rem;
+  opacity: 0;
+  transition: opacity 0.5s, transform 0.1s;
+  transform: translateY(-10rem);
 }
+
+.suggestions-container
+  .suggestions-list-container
+  ul
+  li
+  .poster-content:hover
+  img {
+  filter: brightness(60%);
+}
+.suggestions-container
+  .suggestions-list-container
+  ul
+  li
+  .poster-content:hover
+  .suggestion-name {
+  opacity: 1;
+  transform: translateY(0rem);
+}
+/* .suggestions-container
+  .suggestions-list-container
+  ul
+  li
+  .poster-content
+  .suggestion-name:hover {
+  color: #fff;
+} */
 
 @media (max-width: 1024px) {
   #header-main .navbar-container {

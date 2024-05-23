@@ -9,7 +9,23 @@ function Header() {
   const [suggestionsMovies, setSuggestionsMovies] = useState(null);
   const [imdbID, setImdbID] = useState(null);
   const [movie, setMovie] = useState({});
+  const [scrolled, setScrolled] = useState(false);
   const name = "run"; //test;
+
+  useEffect(() => {
+    const pageScrooled = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", pageScrooled);
+    return () => {
+      window.removeEventListener("scroll", pageScrooled);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,7 +71,7 @@ function Header() {
 
   return (
     <header id="header-main">
-      <div className="navbar-container">
+      <div className={`navbar-container ${scrolled ? "scrolled" : ""}`}>
         <div className="container-content">
           <nav className="navbar flex-row-content">
             <div className="flex-row-content">
