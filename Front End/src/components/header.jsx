@@ -186,6 +186,7 @@ function Header() {
                     )}
                   </div>
                   <div className="ratings-container">
+                    <h2>Ratings</h2>
                     <p className="detalhes">
                       <span>IMDB:</span> {selectedMovie.imdbRating}
                     </p>
@@ -199,7 +200,7 @@ function Header() {
                           className=""
                         >
                           <p className="detalhes">
-                            <span>{filmRatings.Source}:</span>
+                            <span>{filmRatings.Source}:</span>&nbsp;
                             {filmRatings.Value}
                           </p>
                         </li>
@@ -230,7 +231,7 @@ function Header() {
                         <div className="poster-content">
                           <img src={filmSugestion.Poster} />
                           <p className="suggestion-name">
-                            {filmSugestion.Title} ({filmSugestion.Year})
+                            {filmSugestion.Title}({filmSugestion.Year})
                           </p>
                         </div>
                       </li>
