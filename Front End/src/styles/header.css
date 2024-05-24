@@ -176,15 +176,50 @@
 }
 #header-main .showcase .movie-content .detalhes-box .description {
   /* background-color: rgb(0, 135, 253); */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
+  justify-content: space-around; */
   padding: 1rem;
-  justify-content: space-around;
+  display: grid;
+  grid-template-areas:
+    "title title title"
+    "plot plot plot"
+    "content content rate";
+  gap: 1rem;
+}
+#header-main .showcase .movie-content .detalhes-box .descriptionContent {
+  grid-area: "content";
+}
+#header-main
+  .showcase
+  .movie-content
+  .detalhes-box
+  .description
+  .ratings-container {
+  grid-area: "rate";
+  background-color: rgb(0, 135, 253);
+  list-style: none;
 }
 #header-main .showcase .movie-content .detalhes-box .description span {
   color: #d4ff00;
 }
 
+#header-main
+  .showcase
+  .movie-content
+  .detalhes-box
+  .description
+  > *:first-child {
+  grid-area: "title";
+}
+#header-main
+  .showcase
+  .movie-content
+  .detalhes-box
+  .description
+  > *:nth-child(2) {
+  grid-area: "plot";
+}
 #header-main
   .showcase
   .movie-content

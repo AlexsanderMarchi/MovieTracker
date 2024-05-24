@@ -47,24 +47,6 @@ function Header() {
     fetchData();
   }, [nameSearched]);
 
-  //SUGGESTED MOVIES
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        let api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
-        let response = await fetch(api);
-        const data = await response.json();
-        setSuggestionsMovies(data);
-        console.log("suggestion", suggestedName, data);
-      } catch (error) {
-        console.error("Deu ruim: ", error);
-      }
-    };
-    if (suggestedName != "") {
-      fetchSuggestions();
-    }
-  }, [suggestedName]);
-
   //SELECTED MOVIE
   useEffect(() => {
     const fetchMovieSelectedData = async () => {
@@ -86,12 +68,32 @@ function Header() {
     }
   }, [title, imdbID]);
 
-  const clickOnMovie = (title, imdbID) => {
+  //SUGGESTED MOVIES
+  const clickOnMovie = async (title, imdbID) => {
     setTitle(title);
     setImdbID(imdbID);
+    // const mainTitle = title.split(":")[0].trim();
+    // setSuggestedName(title.split(":")[0].trim());
     setSuggestedName(title);
-    console.log(title, imdbID);
   };
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        const mainTitle = title.split(":")[0].trim();
+        setSuggestedName(mainTitle);
+        let api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
+        let response = await fetch(api);
+        const data = await response.json();
+        setSuggestionsMovies(data);
+        console.log("suggestion", "suggestion UseState: ", suggestedName, data);
+      } catch (error) {
+        console.error("Deu ruim: ", error);
+      }
+    };
+    if (suggestedName != "") {
+      fetchSuggestions();
+    }
+  }, [suggestedName]);
 
   return (
     <header id="header-main">
@@ -150,26 +152,60 @@ function Header() {
                     </h2>
                   )}
                   <p className="detalhes"> {selectedMovie.Plot}</p>
-                  {selectedMovie.Genre && (
+                  <div className="descriptionContent">
+                    {selectedMovie.Genre && (
+                      <p className="detalhes">
+                        <span>Genre:</span> {selectedMovie.Genre}{" "}
+                        {selectedMovie.Type}
+                      </p>
+                    )}
+                    {selectedMovie.Director && (
+                      <p className="detalhes">
+                        <span>Director:</span> {selectedMovie.Director}
+                      </p>
+                    )}
+                    {selectedMovie.Actors && (
+                      <p className="detalhes">
+                        <span>Actor:</span> {selectedMovie.Actors};
+                      </p>
+                    )}
+                    {selectedMovie.Writer && (
+                      <p className="detalhes">
+                        <span>Writer:</span> {selectedMovie.Writer}
+                      </p>
+                    )}
+                    {selectedMovie.BoxOffice && (
+                      <p className="detalhes">
+                        <span>Box Office:</span> {selectedMovie.BoxOffice}
+                      </p>
+                    )}
+                    {selectedMovie.Awards && (
+                      <p className="detalhes">
+                        <span>Awards:</span> {selectedMovie.Awards}
+                      </p>
+                    )}
+                  </div>
+                  <div className="ratings-container">
                     <p className="detalhes">
-                      <span>Genre:</span> {selectedMovie.Genre}
+                      <span>IMDB:</span> {selectedMovie.imdbRating}
                     </p>
-                  )}
-                  {selectedMovie.Director && (
                     <p className="detalhes">
-                      <span>Director:</span> {selectedMovie.Director}
+                      <span>Metascore:</span> {selectedMovie.Metascore}
                     </p>
-                  )}
-                  {selectedMovie.Actors && (
-                    <p className="detalhes">
-                      <span>Actor:</span> {selectedMovie.Actors};
-                    </p>
-                  )}
-                  {selectedMovie.Writer && (
-                    <p className="detalhes">
-                      <span>Writer:</span> {selectedMovie.Writer}
-                    </p>
-                  )}
+                    {Object.values(selectedMovie.Ratings || {}).map(
+                      (filmRatings) => (
+                        <li
+                          //key={film.id}
+                          className=""
+                        >
+                          <p className="detalhes">
+                            <span>{filmRatings.Source}:</span>
+                            {filmRatings.Value}
+                          </p>
+                        </li>
+                      )
+                    )}
+                  </div>
                 </div>
               </div>
             )}
