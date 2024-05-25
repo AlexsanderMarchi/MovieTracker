@@ -17,12 +17,9 @@
   background-color: transparent;
   transition: all 0.3s ease-in-out;
 }
-#header-main .navbar-container.scrolled {
-  background-color: #131313;
-  box-shadow: inset 0px 0px 2rem #1a1a1a;
-}
+#header-main .navbar-container.scrolled,
 #header-main .navbar-container:hover {
-  background-color: #131313;
+  background: linear-gradient(179deg, #000, #131313);
   box-shadow: inset 0px 0px 2rem #1a1a1a;
 }
 
@@ -41,7 +38,7 @@
   width: 9%;
   /* height: 2rem; */
   /* padding: 10px; */
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 /* just for now. I will implement this function later */

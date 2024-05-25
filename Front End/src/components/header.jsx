@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "../styles/header.css";
 import "../styles/utilities.css";
-import movieTrackerTitle from "../assets/movieTrackerTitle.jpg";
+import movieTrackerTitle from "../assets/movieTrackerTitle2.jpg";
 
 function Header() {
   const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
   const [selectedMovie, setSelectedMovie] = useState(null); //This take the movie you clicked and bring the data about it
   const [suggestionsMovies, setSuggestionsMovies] = useState(null); //This show movies that are similar to selectedMovie
   const [suggestedName, setSuggestedName] = useState("");
+  const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
   const [imdbID, setImdbID] = useState("");
   const [title, setTitle] = useState(null);
+  const [year, setYear] = useState(null);
   const [movie, setMovie] = useState({});
   const [scrolled, setScrolled] = useState(false);
   const name = "run"; //test;
@@ -51,41 +53,44 @@ function Header() {
   useEffect(() => {
     const fetchMovieSelectedData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?t=${title}&i=${imdbID}&apikey=100f4720`;
+        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`;
         let response = await fetch(api);
         const data = await response.json();
         setSelectedMovie(data);
         console.log("SELECTED MOVIE: ", data);
+        // console.log("DATA ABOUT MOVIE: ", imdbID);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
     };
 
-    if (title) {
+    if (imdbID) {
       fetchMovieSelectedData();
       setSuggestionsMovies(title);
       setNameSearched("");
     }
-  }, [title, imdbID]);
+  }, [imdbID]);
 
-  //SUGGESTED MOVIES
-  const clickOnMovie = async (title, imdbID) => {
-    setTitle(title);
+  const clickOnMovie = async (title, imdbID, year) => {
     setImdbID(imdbID);
-    // const mainTitle = title.split(":")[0].trim();
-    // setSuggestedName(title.split(":")[0].trim());
-    setSuggestedName(title);
+    const mainTitle = title.split(":")[0].trim();
+    setSuggestedName(mainTitle);
+    if (suggestedName === mainTitle) {
+      setSuggestedNameTrue(true);
+    }
   };
+  //SUGGESTED MOVIES
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const mainTitle = title.split(":")[0].trim();
-        setSuggestedName(mainTitle);
-        let api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
+        let api;
+        api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
+        setSuggestedNameTrue(false);
         let response = await fetch(api);
         const data = await response.json();
         setSuggestionsMovies(data);
         console.log("suggestion", "suggestion UseState: ", suggestedName, data);
+        console.log(suggestedNameTrue);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -93,7 +98,7 @@ function Header() {
     if (suggestedName != "") {
       fetchSuggestions();
     }
-  }, [suggestedName]);
+  }, [suggestedNameTrue, suggestedName]);
 
   return (
     <header id="header-main">
@@ -119,7 +124,7 @@ function Header() {
                           <li
                             //key={film.id}
                             onClick={() =>
-                              clickOnMovie(film.Title, film.imdbID)
+                              clickOnMovie(film.Title, film.imdbID, film.Year)
                             }
                             className="searched-movie-container"
                           >
@@ -217,13 +222,18 @@ function Header() {
                 <ul>
                   {Object.values(suggestionsMovies.Search || {})
                     .filter((filmSugestion) => filmSugestion.Poster !== "N/A")
+                    .filter(
+                      (filmSugestion) =>
+                        filmSugestion.imdbID !== selectedMovie.imdbID
+                    )
                     .map((filmSugestion) => (
                       <li
                         //key={film.id}
                         onClick={() =>
                           clickOnMovie(
                             filmSugestion.Title,
-                            filmSugestion.imdbID
+                            filmSugestion.imdbID,
+                            filmSugestion.Year
                           )
                         }
                         className="suggestion-movie-container"
