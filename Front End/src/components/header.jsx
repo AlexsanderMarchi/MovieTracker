@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/header.css";
 import "../styles/utilities.css";
-import movieTrackerTitle from "../assets/movieTrackerTitle2.jpg";
+import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
 function Header() {
   const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
@@ -9,7 +9,7 @@ function Header() {
   const [suggestionsMovies, setSuggestionsMovies] = useState(null); //This show movies that are similar to selectedMovie
   const [suggestedName, setSuggestedName] = useState("");
   const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
-  const [imdbID, setImdbID] = useState("");
+  const [imdbID, setImdbID] = useState(null);
   const [title, setTitle] = useState(null);
   const [year, setYear] = useState(null);
   const [movie, setMovie] = useState({});
@@ -35,7 +35,8 @@ function Header() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?s=${nameSearched}&apikey=100f4720`;
+        let nameSearchedFixed = nameSearched.trim();
+        let api = `https://www.omdbapi.com/?s=${nameSearchedFixed}&apikey=100f4720`;
         let response = await fetch(api);
         const data = await response.json();
         setMovie(data);
@@ -57,7 +58,8 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setSelectedMovie(data);
-        console.log("SELECTED MOVIE: ", data);
+        // console.log("SELECTED MOVIE: ", data);
+        window.scrollTo(0, 0);
         // console.log("DATA ABOUT MOVIE: ", imdbID);
       } catch (error) {
         console.error("Deu ruim: ", error);
@@ -69,13 +71,26 @@ function Header() {
       setSuggestionsMovies(title);
       setNameSearched("");
     }
-  }, [imdbID]);
+  }, [imdbID, title]);
 
   const clickOnMovie = async (title, imdbID, year) => {
     setImdbID(imdbID);
     const mainTitle = title.split(":")[0].trim();
-    setSuggestedName(mainTitle);
-    if (suggestedName === mainTitle) {
+    console.log(mainTitle);
+    const words = mainTitle.split(/\s+/);
+    console.log(words);
+    let finalTitle;
+    if (words.length > 1) {
+      if (words[0].length > 3) {
+        finalTitle = words.slice(0, 2).join(" "); // Pega as duas primeiras palavras se a primeira tiver mais de 3 letras
+      } else {
+        finalTitle = words[1]; // Pega apenas a segunda palavra se a primeira tiver 3 letras ou menos
+      }
+    } else {
+      finalTitle = mainTitle; // Se não houver mais de uma palavra, usa o título original
+    }
+    setSuggestedName(finalTitle);
+    if (suggestedName === finalTitle) {
       setSuggestedNameTrue(true);
     }
   };
@@ -89,8 +104,7 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setSuggestionsMovies(data);
-        console.log("suggestion", "suggestion UseState: ", suggestedName, data);
-        console.log(suggestedNameTrue);
+        console.log("suggestion UseState: ", suggestedName);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -187,6 +201,11 @@ function Header() {
                     {selectedMovie.Awards && (
                       <p className="detalhes">
                         <span>Awards:</span> {selectedMovie.Awards}
+                      </p>
+                    )}
+                    {selectedMovie.totalSeasons && (
+                      <p className="detalhes">
+                        <span>Seasons:</span> {selectedMovie.totalSeasons}
                       </p>
                     )}
                   </div>

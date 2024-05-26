@@ -26,19 +26,20 @@
 #header-main .navbar {
   /* padding: 1rem 2rem; */
   width: 100%;
-  height: 8vh;
+  height: 7vh;
 }
 
 #header-main nav .flex-row-content {
   justify-content: space-evenly;
   width: 50%;
+  height: 100%;
 }
 #header-main nav .flex-row-content > img {
   object-fit: cover;
-  width: 9%;
-  /* height: 2rem; */
+  /* width: 9%; */
+  height: 90%;
   /* padding: 10px; */
-  border-radius: 100%;
+  border-radius: 20%;
 }
 
 /* just for now. I will implement this function later */
@@ -354,7 +355,7 @@
   }
 
   #header-main nav input {
-    padding: 0.5rem;
+    padding: 3% 0.5rem;
   }
   #header-main .showcase {
     min-height: 85vh;
