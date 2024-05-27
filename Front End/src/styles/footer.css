@@ -5,6 +5,9 @@
   align-items: center;
   justify-content: center;
 }
+#footer-main .flex-row-content {
+  justify-content: right;
+}
 .footer-content h1 {
   visibility: hidden;
 }
@@ -30,10 +33,7 @@
 }
 
 @media (max-width: 800px) {
-  .flex-row-content {
+  #footer-main .flex-row-content {
     justify-content: center;
-  }
-  .footer-content h1 {
-    display: none;
   }
 }

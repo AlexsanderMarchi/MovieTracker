@@ -9,7 +9,7 @@ function Header() {
   const [suggestionsMovies, setSuggestionsMovies] = useState(null); //This show movies that are similar to selectedMovie
   const [suggestedName, setSuggestedName] = useState("");
   const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
-  const [imdbID, setImdbID] = useState(null);
+  const [imdbID, setImdbID] = useState("007");
   const [title, setTitle] = useState(null);
   const [year, setYear] = useState(null);
   const [movie, setMovie] = useState({});
@@ -54,13 +54,13 @@ function Header() {
   useEffect(() => {
     const fetchMovieSelectedData = async () => {
       try {
-        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`;
+        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`; /// FIX THE IMDBID BUG OF BEING NULL
         let response = await fetch(api);
         const data = await response.json();
         setSelectedMovie(data);
-        // console.log("SELECTED MOVIE: ", data);
+        console.log("SELECTED MOVIE: ", data);
         window.scrollTo(0, 0);
-        // console.log("DATA ABOUT MOVIE: ", imdbID);
+        // console.log("DATA ABOUT MOVIE: ", imdbID, title);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -71,7 +71,7 @@ function Header() {
       setSuggestionsMovies(title);
       setNameSearched("");
     }
-  }, [imdbID, title]);
+  }, [imdbID]);
 
   const clickOnMovie = async (title, imdbID, year) => {
     setImdbID(imdbID);
@@ -104,7 +104,8 @@ function Header() {
         let response = await fetch(api);
         const data = await response.json();
         setSuggestionsMovies(data);
-        console.log("suggestion UseState: ", suggestedName);
+        // console.log("suggestion UseState: ", suggestedName);
+        console.log("suggestions: ", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -136,7 +137,7 @@ function Header() {
                         .filter((film) => film.Poster !== "N/A")
                         .map((film) => (
                           <li
-                            //key={film.id}
+                            key={film.imdbID}
                             onClick={() =>
                               clickOnMovie(film.Title, film.imdbID, film.Year)
                             }
@@ -209,28 +210,34 @@ function Header() {
                       </p>
                     )}
                   </div>
-                  <div className="ratings-container">
-                    <h2>Ratings</h2>
-                    <p className="detalhes">
-                      <span>IMDB:</span> {selectedMovie.imdbRating}
-                    </p>
-                    <p className="detalhes">
-                      <span>Metascore:</span> {selectedMovie.Metascore}
-                    </p>
-                    {Object.values(selectedMovie.Ratings || {}).map(
-                      (filmRatings) => (
-                        <li
-                          //key={film.id}
-                          className=""
-                        >
-                          <p className="detalhes">
-                            <span>{filmRatings.Source}:</span>&nbsp;
-                            {filmRatings.Value}
-                          </p>
-                        </li>
-                      )
-                    )}
-                  </div>
+                  {selectedMovie.imdbRating && (
+                    <div className="ratings-container">
+                      <h2>Ratings</h2>
+                      {selectedMovie.imdbRating && (
+                        <p className="detalhes">
+                          <span>IMDB:</span> {selectedMovie.imdbRating}
+                        </p>
+                      )}
+                      {selectedMovie.imdbRating && (
+                        <p className="detalhes">
+                          <span>Metascore:</span> {selectedMovie.Metascore}
+                        </p>
+                      )}
+                      {Object.values(selectedMovie.Ratings || {}).map(
+                        (filmRatings) => (
+                          <li
+                            //key={film.id}
+                            className=""
+                          >
+                            <p className="detalhes">
+                              <span>{filmRatings.Source}:</span>&nbsp;
+                              {filmRatings.Value}
+                            </p>
+                          </li>
+                        )
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -241,13 +248,16 @@ function Header() {
                 <ul>
                   {Object.values(suggestionsMovies.Search || {})
                     .filter((filmSugestion) => filmSugestion.Poster !== "N/A")
-                    .filter(
-                      (filmSugestion) =>
-                        filmSugestion.imdbID !== selectedMovie.imdbID
-                    )
+                    .filter((filmSugestion) => {
+                      // Verifique se selectedMovie e selectedMovie.imdbID existem
+                      if (!selectedMovie || !selectedMovie.imdbID) {
+                        return true; // Se selectedMovie ou selectedMovie.imdbID for nulo, não filtrar
+                      }
+                      return filmSugestion.imdbID !== selectedMovie.imdbID;
+                    })
                     .map((filmSugestion) => (
                       <li
-                        //key={film.id}
+                        key={filmSugestion.imdbID}
                         onClick={() =>
                           clickOnMovie(
                             filmSugestion.Title,

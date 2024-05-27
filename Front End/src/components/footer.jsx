@@ -13,7 +13,6 @@ function Footer() {
     <footer id="footer-main">
       <div className="container-content">
         <div className="footer-content flex-row-content">
-          <h1>Hello there</h1>
           <div className="social">
             <h3>About Us: </h3>
             <a href="mailto:alexsandermarchi@gmail.com" target="_blank">
