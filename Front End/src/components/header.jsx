@@ -5,16 +5,14 @@ import "../styles/header.css";
 import "../styles/utilities.css";
 import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
-function Header() {
-  const { nameSearched, setNameSearched, movie } = useContext(MovieContext);
+function Header({ nameSearched, setNameSearched, movie, clickOnMovie }) {
   const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleSearch = (e) => {
-    setNameSearched(e.target.value);
+  const handleSearch = (film) => {
+    clickOnMovie(film.Title, film.imdbID, film.Year);
     navigate("/search");
   };
-
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const pageScrooled = () => {
@@ -43,7 +41,7 @@ function Header() {
                   type="text"
                   placeholder="Digite um nome para pesquisa"
                   value={nameSearched}
-                  onChange={handleSearch}
+                  onChange={(e) => setNameSearched(e.target.value)}
                   className="pesquisa"
                 />
                 {movie.Response != "False" && (
@@ -54,9 +52,7 @@ function Header() {
                         .map((film) => (
                           <li
                             key={film.imdbID}
-                            onClick={() =>
-                              clickOnMovie(film.Title, film.imdbID, film.Year)
-                            }
+                            onClick={() => handleSearch(film)}
                             className="searched-movie-container"
                           >
                             <img src={film.Poster} />

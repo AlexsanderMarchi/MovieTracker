@@ -8,7 +8,7 @@ import { MovieProvider } from "./contexts/movieContext";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
-  { path: "/seach", element: <Search /> },
+  { path: "/search", element: <Search /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

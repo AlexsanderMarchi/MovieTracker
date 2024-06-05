@@ -1,9 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import SearchPage from "../components/searchPage";
 import { MovieContext } from "../contexts/movieContext";
+import {
+  useFetchSearchedMovie,
+  useFetchSelectedMovie,
+  useFetchSuggestions,
+} from "../hooks/movieHooks";
 
 // import tarantino from "../assets/tarantino.jpg";
 // import guyRitchie from "../assets/guyRitchie.jpg";
@@ -28,12 +33,6 @@ function Search() {
   // const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
   // const [selectedMovie, setSelectedMovie] = useState(null); //This take the movie you clicked and bring the data about it
   // const [suggestionsMovies, setSuggestionsMovies] = useState(null); //This show movies that are similar to selectedMovie
-  const [suggestedName, setSuggestedName] = useState("");
-  const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
-  const [imdbID, setImdbID] = useState("007");
-  const [title, setTitle] = useState(null);
-  // const [movie, setMovie] = useState({});
-
   const {
     nameSearched,
     setNameSearched,
@@ -41,56 +40,76 @@ function Search() {
     setSelectedMovie,
     suggestionsMovies,
     setSuggestionsMovies,
+    movie,
+    setMovie,
   } = useContext(MovieContext);
+  const [suggestedName, setSuggestedName] = useState("");
+  const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
+  const [imdbID, setImdbID] = useState("007");
+  const [title, setTitle] = useState(null);
 
-  //SEARCHED MOVIE
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let nameSearchedFixed = nameSearched.trim();
-        let api = `https://www.omdbapi.com/?s=${nameSearchedFixed}&apikey=100f4720`;
-        let response = await fetch(api);
-        const data = await response.json();
-        setMovie(data);
-        // console.log("searched", data);
-      } catch (error) {
-        console.error("Deu ruim: ", error);
-      }
-      // console.log("Movie", movie.Response);
-    };
+  useFetchSearchedMovie(nameSearched, setMovie);
+  useFetchSelectedMovie(
+    imdbID,
+    setSelectedMovie,
+    title,
+    setSuggestionsMovies,
+    setNameSearched
+  );
+  useFetchSuggestions(
+    suggestedName,
+    setSuggestionsMovies,
+    setSuggestedNameTrue
+  );
 
-    fetchData();
-  }, [nameSearched]);
+  // //SEARCHED MOVIE
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let nameSearchedFixed = nameSearched.trim();
+  //       let api = `https://www.omdbapi.com/?s=${nameSearchedFixed}&apikey=100f4720`;
+  //       let response = await fetch(api);
+  //       const data = await response.json();
+  //       setMovie(data);
+  //       // console.log("searched", data);
+  //     } catch (error) {
+  //       console.error("Deu ruim: ", error);
+  //     }
+  //     // console.log("Movie", movie.Response);
+  //   };
 
-  //SELECTED MOVIE
-  useEffect(() => {
-    const fetchMovieSelectedData = async () => {
-      try {
-        let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`; /// FIX THE IMDBID BUG OF BEING NULL
-        let response = await fetch(api);
-        const data = await response.json();
-        setSelectedMovie(data);
-        console.log("SELECTED MOVIE: ", data);
-        window.scrollTo(0, 0);
-        // console.log("DATA ABOUT MOVIE: ", imdbID, title);
-      } catch (error) {
-        console.error("Deu ruim: ", error);
-      }
-    };
+  //   fetchData();
+  // }, [nameSearched]);
 
-    if (imdbID) {
-      fetchMovieSelectedData();
-      setSuggestionsMovies(title);
-      setNameSearched("");
-    }
-  }, [imdbID]);
+  // //SELECTED MOVIE
+  // useEffect(() => {
+  //   const fetchMovieSelectedData = async () => {
+  //     try {
+  //       let api = `https://www.omdbapi.com/?i=${imdbID}&apikey=100f4720`; /// FIX THE IMDBID BUG OF BEING NULL
+  //       let response = await fetch(api);
+  //       const data = await response.json();
+  //       setSelectedMovie(data);
+  //       console.log("SELECTED MOVIE: ", data);
+  //       window.scrollTo(0, 0);
+  //       // console.log("DATA ABOUT MOVIE: ", imdbID, title);
+  //     } catch (error) {
+  //       console.error("Deu ruim: ", error);
+  //     }
+  //   };
+
+  //   if (imdbID) {
+  //     fetchMovieSelectedData();
+  //     setSuggestionsMovies(title);
+  //     setNameSearched("");
+  //   }
+  // }, [imdbID]);
 
   const clickOnMovie = async (title, imdbID, year) => {
     setImdbID(imdbID);
     const mainTitle = title.split(":")[0].trim();
-    console.log(mainTitle);
+    // console.log(mainTitle);
     const words = mainTitle.split(/\s+/);
-    console.log(words);
+    // console.log(words);
     let finalTitle;
     if (words.length > 1) {
       if (words[0].length > 3) {
@@ -106,26 +125,26 @@ function Search() {
       setSuggestedNameTrue(true);
     }
   };
-  //SUGGESTED MOVIES
-  useEffect(() => {
-    const fetchSuggestions = async () => {
-      try {
-        let api;
-        api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
-        setSuggestedNameTrue(false);
-        let response = await fetch(api);
-        const data = await response.json();
-        setSuggestionsMovies(data);
-        // console.log("suggestion UseState: ", suggestedName);
-        console.log("suggestions: ", data);
-      } catch (error) {
-        console.error("Deu ruim: ", error);
-      }
-    };
-    if (suggestedName != "") {
-      fetchSuggestions();
-    }
-  }, [suggestedNameTrue, suggestedName]);
+  // //SUGGESTED MOVIES
+  // useEffect(() => {
+  //   const fetchSuggestions = async () => {
+  //     try {
+  //       let api;
+  //       api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
+  //       setSuggestedNameTrue(false);
+  //       let response = await fetch(api);
+  //       const data = await response.json();
+  //       setSuggestionsMovies(data);
+  //       // console.log("suggestion UseState: ", suggestedName);
+  //       console.log("suggestions: ", data);
+  //     } catch (error) {
+  //       console.error("Deu ruim: ", error);
+  //     }
+  //   };
+  //   if (suggestedName != "") {
+  //     fetchSuggestions();
+  //   }
+  // }, [suggestedNameTrue, suggestedName]);
   return (
     <>
       <div className="main-container">
