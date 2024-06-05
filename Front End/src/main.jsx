@@ -4,6 +4,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Search from "./pages/Search";
+import { MovieProvider } from "./contexts/movieContext";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },
@@ -12,6 +13,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <MovieProvider>
+      <RouterProvider router={router} />
+    </MovieProvider>
   </React.StrictMode>
 );

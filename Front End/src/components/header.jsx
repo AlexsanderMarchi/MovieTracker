@@ -1,9 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { MovieContext } from "../contexts/movieContext";
 import "../styles/header.css";
 import "../styles/utilities.css";
 import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
-function Header({ nameSearched, setNameSearched, movie, clickOnMovie }) {
+function Header() {
+  const { nameSearched, setNameSearched, movie } = useContext(MovieContext);
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    setNameSearched(e.target.value);
+    navigate("/search");
+  };
+
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -33,7 +43,7 @@ function Header({ nameSearched, setNameSearched, movie, clickOnMovie }) {
                   type="text"
                   placeholder="Digite um nome para pesquisa"
                   value={nameSearched}
-                  onChange={(e) => setNameSearched(e.target.value)}
+                  onChange={handleSearch}
                   className="pesquisa"
                 />
                 {movie.Response != "False" && (
