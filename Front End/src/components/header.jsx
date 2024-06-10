@@ -1,9 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { MovieContext } from "../contexts/movieContext";
 import "../styles/utilities.css";
 import "../styles/header.css";
-import movieTrackerTitle from "../../public/logo.png";
+import movieTrackerTitle from "/logo.png";
 
 function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
   const navigate = useNavigate();

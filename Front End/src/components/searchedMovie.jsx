@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import "../styles/showcase.css";
-import "../styles/utilities.css";
-// import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
+import "../styles/searchedMovie.css";
 
 function SearchedMovie({
   selectedMovie,
   suggestionsMovies,
   handleClickOnMovie,
 }) {
-  //   const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
-
   const handleSearch = (filmSugestion) => {
     handleClickOnMovie(
       filmSugestion.Title,
