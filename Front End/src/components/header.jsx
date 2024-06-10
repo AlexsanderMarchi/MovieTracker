@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MovieContext } from "../contexts/movieContext";
-import "../styles/header.css";
 import "../styles/utilities.css";
-import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
+import "../styles/header.css";
+import movieTrackerTitle from "../../public/logo.png";
 
 function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
         <div className="container-content">
           <nav className="navbar flex-row-content">
             <div className="flex-row-content">
-              <img src={movieTrackerTitle}></img>
+              <img onClick={() => navigate("/")} src={movieTrackerTitle}></img>
               <div className="input-container">
                 <input
                   type="text"

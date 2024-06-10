@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
+//SEARCHED MOVIE
 export const useFetchSearchedMovie = (
   nameSearched,
   setNameSearched,
   movie,
   setMovie
 ) => {
-  //SEARCHED MOVIE
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,6 +26,7 @@ export const useFetchSearchedMovie = (
   }, [nameSearched]);
 };
 
+//SELECTED MOVIE
 export const useFetchSelectedMovie = (
   imdbID,
   selectedMovie,
@@ -36,7 +37,6 @@ export const useFetchSelectedMovie = (
   nameSearched,
   setNameSearched
 ) => {
-  //SELECTED MOVIE
   useEffect(() => {
     const fetchMovieSelectedData = async () => {
       try {
@@ -46,7 +46,7 @@ export const useFetchSelectedMovie = (
         setSelectedMovie(data);
         console.log("SELECTED MOVIE: ", data);
         window.scrollTo(0, 0);
-        // console.log("DATA ABOUT MOVIE: ", imdbID, title);
+        setNameSearched("");
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -55,11 +55,11 @@ export const useFetchSelectedMovie = (
     if (imdbID) {
       fetchMovieSelectedData();
       setSuggestionsMovies(title);
-      setNameSearched("");
     }
   }, [imdbID]);
 };
 
+//SUGGESTED MOVIES
 export const useFetchSuggestions = (
   suggestedName,
   setSuggestedName,
@@ -68,7 +68,6 @@ export const useFetchSuggestions = (
   suggestedNameTrue,
   setSuggestedNameTrue
 ) => {
-  //SUGGESTED MOVIES
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
@@ -99,7 +98,6 @@ export const clickOnMovie = async (
 ) => {
   setImdbID(imdbID);
   const mainTitle = title.split(":")[0].trim();
-  console.log(imdbID);
   const words = mainTitle.split(/\s+/);
   // console.log(words);
   let finalTitle;

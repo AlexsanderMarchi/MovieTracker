@@ -3,7 +3,11 @@ import "../styles/showcase.css";
 import "../styles/utilities.css";
 // import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
-function SearchPage({ selectedMovie, suggestionsMovies, handleClickOnMovie }) {
+function SearchedMovie({
+  selectedMovie,
+  suggestionsMovies,
+  handleClickOnMovie,
+}) {
   //   const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
 
   const handleSearch = (filmSugestion) => {
@@ -106,13 +110,13 @@ function SearchPage({ selectedMovie, suggestionsMovies, handleClickOnMovie }) {
                 <ul>
                   {Object.values(suggestionsMovies.Search || {})
                     .filter((filmSugestion) => filmSugestion.Poster !== "N/A")
-                    // .filter((filmSugestion) => {
-                    //   // Verifique se selectedMovie e selectedMovie.imdbID existem
-                    //   if (!selectedMovie || !selectedMovie.imdbID) {
-                    //     return true; // Se selectedMovie ou selectedMovie.imdbID for nulo, não filtrar
-                    //   }
-                    //   return filmSugestion.imdbID !== selectedMovie.imdbID;
-                    // })
+                    .filter((filmSugestion) => {
+                      // Verifique se selectedMovie e selectedMovie.imdbID existem
+                      if (!selectedMovie || !selectedMovie.imdbID) {
+                        return true; // Se selectedMovie ou selectedMovie.imdbID for nulo, não filtrar
+                      }
+                      return filmSugestion.imdbID !== selectedMovie.imdbID;
+                    })
                     .map((filmSugestion) => (
                       <li
                         key={filmSugestion.imdbID}
@@ -137,4 +141,4 @@ function SearchPage({ selectedMovie, suggestionsMovies, handleClickOnMovie }) {
   );
 }
 
-export default SearchPage;
+export default SearchedMovie;

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "../styles/home.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import SearchPage from "../components/searchPage";
+import SearchedMovie from "../components/searchedMovie";
 import { MovieContext } from "../contexts/movieContext";
 import {
   useFetchSearchedMovie,
@@ -154,7 +154,7 @@ function Search() {
           movie={movie}
           handleClickOnMovie={handleClickOnMovie}
         />
-        <SearchPage
+        <SearchedMovie
           selectedMovie={selectedMovie}
           suggestionsMovies={suggestionsMovies}
           handleClickOnMovie={handleClickOnMovie}
