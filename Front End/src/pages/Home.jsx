@@ -7,6 +7,8 @@ import { MovieContext } from "../contexts/movieContext";
 import {
   useFetchSearchedMovie,
   useFetchSelectedMovie,
+  useFetchSuggestions,
+  clickOnMovie,
 } from "../hooks/movieHooks";
 
 function Home() {
@@ -19,13 +21,35 @@ function Home() {
     setSuggestionsMovies,
     movie,
     setMovie,
+    suggestedName,
+    setSuggestedName,
+    suggestedNameTrue,
+    setSuggestedNameTrue,
+    imdbID,
+    setImdbID,
+    title,
+    setTitle,
   } = useContext(MovieContext);
-  const [imdbID, setImdbID] = useState("007");
-  const [title, setTitle] = useState(null);
 
-  useFetchSearchedMovie(nameSearched, setMovie);
-  useFetchSelectedMovie(imdbID, setSelectedMovie, title, setSuggestionsMovies, setNameSearched);
-
+  useFetchSearchedMovie(nameSearched, setNameSearched, movie, setMovie);
+  useFetchSelectedMovie(
+    imdbID,
+    selectedMovie,
+    setSelectedMovie,
+    title,
+    suggestionsMovies,
+    setSuggestionsMovies,
+    nameSearched,
+    setNameSearched
+  );
+  useFetchSuggestions(
+    suggestedName,
+    setSuggestedName,
+    suggestionsMovies,
+    setSuggestionsMovies,
+    suggestedNameTrue,
+    setSuggestedNameTrue
+  );
 
   // //SEARCHED MOVIE
   // useEffect(() => {
@@ -69,27 +93,35 @@ function Home() {
   //   }
   // }, [imdbID]);
 
-  const clickOnMovie = async (title, imdbID, year) => {
-    setImdbID(imdbID);
-    // const mainTitle = title.split(":")[0].trim();
-    // console.log(mainTitle);
-    // const words = mainTitle.split(/\s+/);
-    // console.log(words);
-    // let finalTitle;
-    // if (words.length > 1) {
-    //   if (words[0].length > 3) {
-    //     finalTitle = words.slice(0, 2).join(" "); // Pega as duas primeiras palavras se a primeira tiver mais de 3 letras
-    //   } else {
-    //     finalTitle = words[1]; // Pega apenas a segunda palavra se a primeira tiver 3 letras ou menos
-    //   }
-    // } else {
-    //   finalTitle = mainTitle; // Se não houver mais de uma palavra, usa o título original
-    // }
-    // setSuggestedName(finalTitle);
-    // if (suggestedName === finalTitle) {
-    //   setSuggestedNameTrue(true);
-    // }
+  const handleClickOnMovie = async (title, imdbID, year) => {
+    clickOnMovie(
+      title,
+      imdbID,
+      setImdbID,
+      suggestedName,
+      setSuggestedName,
+      setSuggestedNameTrue
+    );
   };
+  // const mainTitle = title.split(":")[0].trim();
+  // console.log(mainTitle);
+  // const words = mainTitle.split(/\s+/);
+  // console.log(words);
+  // let finalTitle;
+  // if (words.length > 1) {
+  //   if (words[0].length > 3) {
+  //     finalTitle = words.slice(0, 2).join(" "); // Pega as duas primeiras palavras se a primeira tiver mais de 3 letras
+  //   } else {
+  //     finalTitle = words[1]; // Pega apenas a segunda palavra se a primeira tiver 3 letras ou menos
+  //   }
+  // } else {
+  //   finalTitle = mainTitle; // Se não houver mais de uma palavra, usa o título original
+  // }
+  // setSuggestedName(finalTitle);
+  // if (suggestedName === finalTitle) {
+  //   setSuggestedNameTrue(true);
+  // }
+  // };
 
   return (
     <>
@@ -97,7 +129,7 @@ function Home() {
         nameSearched={nameSearched}
         setNameSearched={setNameSearched}
         movie={movie}
-        clickOnMovie={clickOnMovie}
+        handleClickOnMovie={handleClickOnMovie}
       />
       <Showcase />
       <Footer />

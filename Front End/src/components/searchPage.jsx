@@ -3,10 +3,16 @@ import "../styles/showcase.css";
 import "../styles/utilities.css";
 // import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
-function SearchPage({ selectedMovie, suggestionsMovies, clickOnMovie }) {
+function SearchPage({ selectedMovie, suggestionsMovies, handleClickOnMovie }) {
   //   const [nameSearched, setNameSearched] = useState(""); //Responsible to get the name you write on search bar and show movies with that name
 
-  const name = "run"; //test;
+  const handleSearch = (filmSugestion) => {
+    handleClickOnMovie(
+      filmSugestion.Title,
+      filmSugestion.imdbID,
+      filmSugestion.Year
+    );
+  };
 
   return (
     <header id="header-main">
@@ -100,23 +106,17 @@ function SearchPage({ selectedMovie, suggestionsMovies, clickOnMovie }) {
                 <ul>
                   {Object.values(suggestionsMovies.Search || {})
                     .filter((filmSugestion) => filmSugestion.Poster !== "N/A")
-                    .filter((filmSugestion) => {
-                      // Verifique se selectedMovie e selectedMovie.imdbID existem
-                      if (!selectedMovie || !selectedMovie.imdbID) {
-                        return true; // Se selectedMovie ou selectedMovie.imdbID for nulo, não filtrar
-                      }
-                      return filmSugestion.imdbID !== selectedMovie.imdbID;
-                    })
+                    // .filter((filmSugestion) => {
+                    //   // Verifique se selectedMovie e selectedMovie.imdbID existem
+                    //   if (!selectedMovie || !selectedMovie.imdbID) {
+                    //     return true; // Se selectedMovie ou selectedMovie.imdbID for nulo, não filtrar
+                    //   }
+                    //   return filmSugestion.imdbID !== selectedMovie.imdbID;
+                    // })
                     .map((filmSugestion) => (
                       <li
                         key={filmSugestion.imdbID}
-                        onClick={() =>
-                          clickOnMovie(
-                            filmSugestion.Title,
-                            filmSugestion.imdbID,
-                            filmSugestion.Year
-                          )
-                        }
+                        onClick={() => handleSearch(filmSugestion)}
                         className="suggestion-movie-container"
                       >
                         <div className="poster-content">

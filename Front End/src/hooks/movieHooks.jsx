@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 
-export const useFetchSearchedMovie = (nameSearched, setMovie) => {
+export const useFetchSearchedMovie = (
+  nameSearched,
+  setNameSearched,
+  movie,
+  setMovie
+) => {
   //SEARCHED MOVIE
   useEffect(() => {
     const fetchData = async () => {
@@ -10,7 +15,7 @@ export const useFetchSearchedMovie = (nameSearched, setMovie) => {
         let response = await fetch(api);
         const data = await response.json();
         setMovie(data);
-        // console.log("searched", data);
+        console.log("SEARCHED MOVIE", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -18,14 +23,17 @@ export const useFetchSearchedMovie = (nameSearched, setMovie) => {
     };
 
     fetchData();
-  }, [nameSearched, setMovie]);
+  }, [nameSearched]);
 };
 
 export const useFetchSelectedMovie = (
   imdbID,
+  selectedMovie,
   setSelectedMovie,
   title,
+  suggestionsMovies,
   setSuggestionsMovies,
+  nameSearched,
   setNameSearched
 ) => {
   //SELECTED MOVIE
@@ -49,21 +57,20 @@ export const useFetchSelectedMovie = (
       setSuggestionsMovies(title);
       setNameSearched("");
     }
-  }, [imdbID, setSelectedMovie, title, setSuggestionsMovies, setNameSearched]);
+  }, [imdbID]);
 };
 
 export const useFetchSuggestions = (
   suggestedName,
+  setSuggestedName,
+  suggestionsMovies,
   setSuggestionsMovies,
+  suggestedNameTrue,
   setSuggestedNameTrue
 ) => {
   //SUGGESTED MOVIES
   useEffect(() => {
-    const fetchSuggestions = async (
-      suggestedName,
-      setSuggestionsMovies,
-      setSuggestedNameTrue
-    ) => {
+    const fetchSuggestions = async () => {
       try {
         let api;
         api = `https://www.omdbapi.com/?s=${suggestedName}&apikey=100f4720`;
@@ -71,8 +78,7 @@ export const useFetchSuggestions = (
         let response = await fetch(api);
         const data = await response.json();
         setSuggestionsMovies(data);
-        // console.log("suggestion UseState: ", suggestedName);
-        console.log("suggestions: ", data);
+        console.log("SUGGESTED MOVIES: ", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
@@ -80,5 +86,34 @@ export const useFetchSuggestions = (
     if (suggestedName != "") {
       fetchSuggestions();
     }
-  }, [suggestedName, setSuggestionsMovies, setSuggestedNameTrue]);
+  }, [suggestedNameTrue, suggestedName]);
+};
+
+export const clickOnMovie = async (
+  title,
+  imdbID,
+  setImdbID,
+  suggestedName,
+  setSuggestedName,
+  setSuggestedNameTrue
+) => {
+  setImdbID(imdbID);
+  const mainTitle = title.split(":")[0].trim();
+  console.log(imdbID);
+  const words = mainTitle.split(/\s+/);
+  // console.log(words);
+  let finalTitle;
+  if (words.length > 1) {
+    if (words[0].length > 3) {
+      finalTitle = words.slice(0, 2).join(" "); // Pega as duas primeiras palavras se a primeira tiver mais de 3 letras
+    } else {
+      finalTitle = words[1]; // Pega apenas a segunda palavra se a primeira tiver 3 letras ou menos
+    }
+  } else {
+    finalTitle = mainTitle; // Se não houver mais de uma palavra, usa o título original
+  }
+  setSuggestedName(finalTitle);
+  if (suggestedName === finalTitle) {
+    setSuggestedNameTrue(true);
+  }
 };

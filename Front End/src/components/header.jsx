@@ -5,12 +5,12 @@ import "../styles/header.css";
 import "../styles/utilities.css";
 import movieTrackerTitle from "../assets/movieTrackerTitle3.jpg";
 
-function Header({ nameSearched, setNameSearched, movie, clickOnMovie }) {
+function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
 
   const handleSearch = (film) => {
-    clickOnMovie(film.Title, film.imdbID, film.Year);
+    handleClickOnMovie(film.Title, film.imdbID, film.Year);
     navigate("/search");
   };
 

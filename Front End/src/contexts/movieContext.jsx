@@ -7,6 +7,10 @@ export const MovieProvider = ({ children }) => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [suggestionsMovies, setSuggestionsMovies] = useState(null);
   const [movie, setMovie] = useState({});
+  const [suggestedName, setSuggestedName] = useState("");
+  const [suggestedNameTrue, setSuggestedNameTrue] = useState(false);
+  const [imdbID, setImdbID] = useState("007");
+  const [title, setTitle] = useState(null);
 
   return (
     <MovieContext.Provider
@@ -19,6 +23,14 @@ export const MovieProvider = ({ children }) => {
         setSuggestionsMovies,
         movie,
         setMovie,
+        suggestedName,
+        setSuggestedName,
+        suggestedNameTrue,
+        setSuggestedNameTrue,
+        imdbID,
+        setImdbID,
+        title,
+        setTitle,
       }}
     >
       {children}
