@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/showcase.css";
+import "../styles/sugDirectors.css";
 import "../styles/utilities.css";
 import tarantino from "../assets/tarantino.jpg";
 import guyRitchie from "../assets/guyRitchie.jpg";
@@ -20,16 +20,37 @@ function SugDirectors() {
     { id: 7, name: "Christopher Nolan", cover: nolan },
     { id: 8, name: "Guy Ritchie", cover: guyRitchie },
   ]);
+  // const [country, setCountry] = useState();
+  // useEffect(() => {
+  //   const fetchSuggestions = async () => {
+  //     try {
+  //       let api;
+  //       api = `https://restcountries.com/v3.1/name/brazil`;
+  //       let response = await fetch(api);
+  //       const data = await response.json();
+  //       setCountry(data);
+  //       console.log("Countries: ", data);
+  //     } catch (error) {
+  //       console.error("Deu ruim: ", error);
+  //     }
+  //   };
+
+  //   fetchSuggestions();
+  // }, []);
   return (
-    <div className="container">
-      <div className="directorsDiv">
-        {directors.map((director) => (
-          <li className="directors-lista-div" key={director.id}>
-            <img className="directorCover" src={director.cover}></img>
-            <p className="directorName">{director.name}</p>
-          </li>
-        ))}
+    <div className="directors-container">
+      {/* <div className="container-content"> */}
+      <div className="directors-content">
+        <h2>Directors Suggestion</h2>
+        <div className="directors">
+          {directors.map((director) => (
+            <li className="directors-lista" key={director.id}>
+              <img src={director.cover}></img>
+            </li>
+          ))}
+        </div>
       </div>
+      {/* </div> */}
     </div>
   );
 }

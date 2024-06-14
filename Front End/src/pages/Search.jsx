@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "../styles/home.css";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import SearchedMovie from "../components/searchedMovie";

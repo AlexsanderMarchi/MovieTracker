@@ -3,6 +3,8 @@
   /* background-color: rgb(32, 36, 36); */
   height: 50vh;
   position: relative;
+  clip-path: polygon(0rem 0rem, 100% 0, 100% 50vh, 0 95%);
+  z-index: 1;
 }
 
 #showcase-main * {
