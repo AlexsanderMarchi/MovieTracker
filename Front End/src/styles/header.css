@@ -39,6 +39,7 @@
   object-fit: cover;
   height: 90%;
   border-radius: 20%;
+  visibility: hidden;
 }
 
 /* just for now. I will implement this function later */

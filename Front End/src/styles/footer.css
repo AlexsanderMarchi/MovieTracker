@@ -22,10 +22,10 @@
 .footer-content .social .contact {
   height: 1.6rem;
   width: 1.3rem;
-  color: #6c8100;
+  color: var(--dark-green);
 }
 .footer-content .social .contact:hover {
-  color: #98b500;
+  color: var(--dark-green-secondary);
 }
 .footer-content .social a {
   display: flex;

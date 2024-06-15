@@ -38,16 +38,18 @@ function SugDirectors() {
   //   fetchSuggestions();
   // }, []);
   return (
-    <div className="directors-container">
+    <div className="directors-container py-2">
       {/* <div className="container-content"> */}
       <div className="directors-content">
         <h2>Directors Suggestion</h2>
         <div className="directors">
-          {directors.map((director) => (
-            <li className="directors-lista" key={director.id}>
-              <img src={director.cover}></img>
-            </li>
-          ))}
+          <ul>
+            {directors.map((director) => (
+              <li className="directors-lista" key={director.id}>
+                <img src={director.cover}></img>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       {/* </div> */}
