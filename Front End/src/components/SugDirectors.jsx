@@ -19,24 +19,30 @@ function SugDirectors() {
     { id: 6, name: "Quentin Tarantino", cover: tarantino },
     { id: 7, name: "Christopher Nolan", cover: nolan },
     { id: 8, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 9, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 10, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 11, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 12, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 13, name: "Guy Ritchie", cover: guyRitchie },
+    { id: 14, name: "Guy Ritchie", cover: guyRitchie },
   ]);
-  // const [country, setCountry] = useState();
-  // useEffect(() => {
-  //   const fetchSuggestions = async () => {
-  //     try {
-  //       let api;
-  //       api = `https://restcountries.com/v3.1/name/brazil`;
-  //       let response = await fetch(api);
-  //       const data = await response.json();
-  //       setCountry(data);
-  //       console.log("Countries: ", data);
-  //     } catch (error) {
-  //       console.error("Deu ruim: ", error);
-  //     }
-  //   };
+  const [country, setCountry] = useState();
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        let api;
+        api = `https://restcountries.com/v3.1/name/brazil`;
+        let response = await fetch(api);
+        const data = await response.json();
+        setCountry(data);
+        console.log("Countries: ", data);
+      } catch (error) {
+        console.error("Deu ruim: ", error);
+      }
+    };
 
-  //   fetchSuggestions();
-  // }, []);
+    fetchSuggestions();
+  }, []);
   return (
     <div className="directors-container py-2">
       {/* <div className="container-content"> */}
@@ -51,8 +57,8 @@ function SugDirectors() {
             ))}
           </ul>
         </div>
+        {/* </div> */}
       </div>
-      {/* </div> */}
     </div>
   );
 }

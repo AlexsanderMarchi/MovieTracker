@@ -34,23 +34,23 @@
   width: 50%;
   height: 100%;
 }
-#header-main nav .flex-row-content > img {
+#header-main nav .flex-row-content > h1 {
   cursor: pointer;
-  object-fit: cover;
-  height: 90%;
-  border-radius: 20%;
-  visibility: hidden;
+  text-shadow: 1px 9px 13px rgba(0, 0, 0, 0.5);
+  /* background: linear-gradient(to right, #98b500, #d4ff00);
+  -webkit-background-clip: text;
+  color: transparent; */
 }
-
-/* just for now. I will implement this function later */
-#header-main nav > h2 {
-  visibility: hidden;
+#header-main nav .flex-row-content h1 span {
+  color: var(--main-green);
 }
-/* end */
 
 #header-main nav h2 {
   cursor: pointer;
   border-bottom: 4px transparent solid;
+}
+#header-main nav h3 {
+  visibility: hidden;
 }
 #header-main nav h2:hover {
   border-bottom: 4px yellow solid;
@@ -78,7 +78,7 @@
   max-height: 60vh;
   height: auto;
   position: absolute;
-  transform: translateY(2rem);
+  transform: translateY(2.5rem);
   top: 0px;
   left: 0px;
   width: 100%;

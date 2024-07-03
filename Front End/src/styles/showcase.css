@@ -1,10 +1,10 @@
 #showcase-main {
   background: url(../../showcase.jpg) no-repeat center top / cover;
-  /* background-color: rgb(32, 36, 36); */
+  /* background-color: bisque; */
   height: 50vh;
   position: relative;
   /* clip-path: polygon(0rem 0rem, 100% 0, 100% 50vh, 0 95%); */
-  z-index: 1;
+  box-shadow: inset 0px 0px 2rem #1a1a1a;
 }
 
 #showcase-main * {

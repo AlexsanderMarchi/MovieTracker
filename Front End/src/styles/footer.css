@@ -11,6 +11,9 @@
 .footer-content h1 {
   visibility: hidden;
 }
+.footer-content {
+  height: 100%;
+}
 .footer-content .social {
   display: flex;
   align-items: center;

@@ -34,7 +34,9 @@ function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
         <div className="container-content">
           <nav className="navbar flex-row-content">
             <div className="flex-row-content">
-              <img onClick={() => navigate("/")} src={movieTrackerTitle}></img>
+              <h1 onClick={() => navigate("/")}>
+                MOVIE <span>TRACKER</span>
+              </h1>
               <div className="input-container">
                 <input
                   type="text"
@@ -65,7 +67,9 @@ function Header({ nameSearched, setNameSearched, movie, handleClickOnMovie }) {
                 )}
               </div>
             </div>
-            <h2>Login</h2>
+            <h3>Login</h3>
+            <h3>Login</h3>
+            <h3>Login</h3>
           </nav>
         </div>
       </div>
