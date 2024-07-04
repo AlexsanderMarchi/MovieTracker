@@ -1,7 +1,7 @@
 .directors-container {
   height: 50vh;
   background: linear-gradient(to top, #1a011a, #000000);
-  width: 100%;
+  width: 100vw;
 }
 
 .directors-container .directors-content {
@@ -10,17 +10,16 @@
   justify-content: flex-start;
   margin: 0 0 0 5vw;
   align-items: flex-start;
-  width: 100%;
+  width: 94%;
   height: 100%;
 }
 .directors-container .directors-content h2 {
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem 0;
 }
 
 .directors-container .directors-content .directors {
   height: 80%;
-  overflow-x: scroll;
-  width: 100%;
+  width: 98%;
 }
 .directors-container .directors-content .directors ul {
   display: flex;
@@ -30,11 +29,12 @@
   width: 100%;
   gap: 1.5rem;
   list-style: none;
+  overflow-x: scroll;
 }
 
 .directors-container .directors-content .directors .directors-lista {
   box-shadow: inset 0rem -5rem 0.6rem #000000;
-  width: 100%;
+  min-width: 15rem;
   height: 100%;
   overflow: hidden;
   z-index: 0;

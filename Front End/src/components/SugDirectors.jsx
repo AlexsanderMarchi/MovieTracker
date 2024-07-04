@@ -1,30 +1,24 @@
 import React, { useState, useEffect } from "react";
 import "../styles/sugDirectors.css";
 import "../styles/utilities.css";
-import tarantino from "../assets/tarantino.jpg";
+import tarantino from "../assets/tarantino2.png";
 import guyRitchie from "../assets/guyRitchie.jpg";
-import nolan from "../assets/nolan.jpg";
-import kubrick from "../assets/kubrick.jpg";
-import scorsese from "../assets/scorsese.jpg";
-import cameron from "../assets/cameron.jpg";
-import ridleyScott from "../assets/ridleyScott.jpg";
-import spielberg from "../assets/spielberg.jpg";
+import nolan from "../assets/nolan2.jpg";
+import kubrick from "../assets/kubrick2.jpg";
+import scorsese2 from "../assets/scorsese2.jpg";
+import cameron from "../assets/cameron2.jpg";
+import ridleyScott from "../assets/ridleyScott2.jpg";
+import spielberg from "../assets/spielberg2.jpg";
 function SugDirectors() {
   const [directors, setDirectors] = useState([
     { id: 1, name: "Steven Spielberg", cover: spielberg },
     { id: 2, name: "James Cameron", cover: cameron },
     { id: 3, name: "Ridley Scott", cover: ridleyScott },
     { id: 4, name: "Stanley Kubrick", cover: kubrick },
-    { id: 5, name: "Matin Scorsese", cover: scorsese },
+    { id: 5, name: "Matin Scorsese", cover: scorsese2 },
     { id: 6, name: "Quentin Tarantino", cover: tarantino },
     { id: 7, name: "Christopher Nolan", cover: nolan },
     { id: 8, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 9, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 10, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 11, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 12, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 13, name: "Guy Ritchie", cover: guyRitchie },
-    { id: 14, name: "Guy Ritchie", cover: guyRitchie },
   ]);
   const [country, setCountry] = useState();
   useEffect(() => {

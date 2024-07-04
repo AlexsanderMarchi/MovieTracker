@@ -4,7 +4,7 @@
   height: 50vh;
   position: relative;
   /* clip-path: polygon(0rem 0rem, 100% 0, 100% 50vh, 0 95%); */
-  box-shadow: inset 0px 0px 2rem #1a1a1a;
+  box-shadow: inset -6px -2rem 2.5rem black;
 }
 
 #showcase-main * {
