@@ -15,7 +15,7 @@ function SearchedMovie({
 
   return (
     <header id="header-main">
-      <div className="showcase">
+      <div className="searched-movie">
         <div className="container-content">
           <div className="movie-content">
             {selectedMovie && (

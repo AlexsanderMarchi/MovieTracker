@@ -29,7 +29,7 @@
   width: 100%;
   gap: 1.5rem;
   list-style: none;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .directors-container .directors-content .directors .directors-lista {

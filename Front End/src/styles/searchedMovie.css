@@ -1,7 +1,7 @@
 /* SECTION 2 -- SHOWCASE */
 /* SHOWCASE */
 
-#header-main .showcase {
+#header-main .searched-movie {
   background: url(/src/showcase.jpg) no-repeat center 25% / cover;
   min-height: 94.4vh;
   height: 100%;
@@ -12,11 +12,11 @@
   padding: 4rem;
 }
 
-#header-main .showcase * {
+#header-main .searched-movie * {
   z-index: 10;
 }
 
-#header-main .showcase::before {
+#header-main .searched-movie::before {
   content: "";
   position: absolute;
   top: 0;
@@ -28,24 +28,24 @@
 
 /*  DESCRIPTION MOVIE */
 
-#header-main .showcase .movie-content {
+#header-main .searched-movie .movie-content {
   height: 100%;
   width: 100%;
   display: flex;
 }
-#header-main .showcase .movie-content .detalhes-box {
+#header-main .searched-movie .movie-content .detalhes-box {
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 100%;
   height: 100%;
 }
-#header-main .showcase .movie-content .detalhes-box .detalhes-img {
+#header-main .searched-movie .movie-content .detalhes-box .detalhes-img {
   object-fit: cover;
   height: 85%;
   align-self: center;
   box-shadow: 12px 9px 1.5rem #060606;
 }
-#header-main .showcase .movie-content .detalhes-box .description {
+#header-main .searched-movie .movie-content .detalhes-box .description {
   padding: 1rem;
   display: grid;
   grid-template-areas:
@@ -55,14 +55,14 @@
   gap: 0.5rem;
   align-items: stretch;
 }
-#header-main .showcase .movie-content .detalhes-box .descriptionContent {
+#header-main .searched-movie .movie-content .detalhes-box .descriptionContent {
   grid-area: content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
@@ -79,7 +79,7 @@
   border-radius: 5px;
 }
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
@@ -88,12 +88,12 @@
   align-self: center;
   text-align: center;
 }
-#header-main .showcase .movie-content .detalhes-box .description span {
+#header-main .searched-movie .movie-content .detalhes-box .description span {
   color: var(--main-green);
 }
 
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
@@ -101,7 +101,7 @@
   grid-area: title;
 }
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
@@ -109,13 +109,13 @@
   grid-area: plot;
 }
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
   > *:first-child,
 #header-main
-  .showcase
+  .searched-movie
   .movie-content
   .detalhes-box
   .description
@@ -200,17 +200,17 @@
 @media (max-width: 1024px) {
 }
 @media (max-width: 800px) {
-  #header-main .showcase {
+  #header-main .searched-movie {
     min-height: 85vh;
     padding: 2rem 1rem;
   }
 
-  #header-main .showcase .movie-content .detalhes-box {
+  #header-main .searched-movie .movie-content .detalhes-box {
     display: flex;
     height: 100%;
     flex-direction: column;
   }
-  #header-main .showcase .movie-content .detalhes-box .description {
+  #header-main .searched-movie .movie-content .detalhes-box .description {
     grid-template-areas:
       "title"
       "plot"

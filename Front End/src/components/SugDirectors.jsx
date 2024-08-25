@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "../styles/sugDirectors.css";
+import "../styles/searchedMovie.css";
+
 import "../styles/utilities.css";
 import tarantino from "../assets/tarantino2.png";
-import guyRitchie from "../assets/guyRitchie.jpg";
+// import guyRitchie from "../assets/guyRitchie.jpg";
 import nolan from "../assets/nolan2.jpg";
 import kubrick from "../assets/kubrick2.jpg";
 import scorsese2 from "../assets/scorsese2.jpg";
@@ -18,25 +20,33 @@ function SugDirectors() {
     { id: 5, name: "Matin Scorsese", cover: scorsese2 },
     { id: 6, name: "Quentin Tarantino", cover: tarantino },
     { id: 7, name: "Christopher Nolan", cover: nolan },
-    { id: 8, name: "Guy Ritchie", cover: guyRitchie },
+    // { id: 8, name: "Guy Ritchie", cover: guyRitchie },
   ]);
-  const [country, setCountry] = useState();
+  const [directorMovies, setDirectorMovies] = useState("tt0110912");
+  const [directorMovie, setDirectorMovie] = useState([]);
+  const [directorCount, setDirectorCount] = useState(1);
+  // [{ id: 1, name: "tt0110912"},]);
+
   useEffect(() => {
-    const fetchSuggestions = async () => {
+    const fetchDirectorMovies = async () => {
       try {
-        let api;
-        api = `https://restcountries.com/v3.1/name/brazil`;
+        let api = `https://www.omdbapi.com/?i=${directorMovies}&apikey=100f4720`; /// FIX THE IMDBID BUG OF BEING NULL
         let response = await fetch(api);
         const data = await response.json();
-        setCountry(data);
-        console.log("Countries: ", data);
+        setDirectorMovie(data);
+        console.log("DirectorMovie: ", data);
       } catch (error) {
         console.error("Deu ruim: ", error);
       }
     };
 
-    fetchSuggestions();
-  }, []);
+    fetchDirectorMovies();
+  }, [directorCount]);
+
+  const directorClicked = async () => {
+    setDirectorCount(directorCount + 1);
+  };
+
   return (
     <div className="directors-container py-2">
       {/* <div className="container-content"> */}
@@ -52,6 +62,30 @@ function SugDirectors() {
           </ul>
         </div>
         {/* </div> */}
+      </div>
+      <div className="suggestions-container">
+        {directorMovie && (
+          <div className="suggestions-list-container">
+            <ul>
+              {Object.values(directorMovie.Search || {}).map(
+                (directorMovie) => (
+                  <li
+                    key={directorMovie.imdbID}
+                    onClick={directorClicked()}
+                    className="suggestion-movie-container"
+                  >
+                    <div className="poster-content">
+                      <img src={directorMovie.Poster} />
+                      <p className="suggestion-name">
+                        {directorMovie.Title}({directorMovie.Year})
+                      </p>
+                    </div>
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
