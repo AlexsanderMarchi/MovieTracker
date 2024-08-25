@@ -13,13 +13,48 @@ import ridleyScott from "../assets/ridleyScott2.jpg";
 import spielberg from "../assets/spielberg2.jpg";
 function SugDirectors() {
   const [directors, setDirectors] = useState([
-    { id: 1, name: "Steven Spielberg", cover: spielberg },
-    { id: 2, name: "James Cameron", cover: cameron },
-    { id: 3, name: "Ridley Scott", cover: ridleyScott },
-    { id: 4, name: "Stanley Kubrick", cover: kubrick },
-    { id: 5, name: "Matin Scorsese", cover: scorsese2 },
-    { id: 6, name: "Quentin Tarantino", cover: tarantino },
-    { id: 7, name: "Christopher Nolan", cover: nolan },
+    {
+      id: 1,
+      name: "Steven Spielberg",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BNWRlZTJhNGMtOWIyOS00YjRkLWExNjgtNDEwOTY1NGYxYmEwXkEyXkFqcGc@._V1_SX300.jpg",
+    },
+    {
+      id: 2,
+      name: "James Cameron",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BMDU0NjcwOGQtNjNjOS00NzQ3LWIwM2YtYWVmODZjMzQzN2ExXkEyXkFqcGc@._V1_SX300.jpg",
+    },
+    {
+      id: 3,
+      name: "Ridley Scott",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BOWI5YTlkNTktOTJlMC00MmYyLThkNzQtYmExOGZkZDE1ZjgwXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_SX300.jpg",
+    },
+    {
+      id: 4,
+      name: "Stanley Kubrick",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BM2QzMGVkNjUtN2Y4Yi00ODMwLTg3YzktYzUxYjJlNjFjNDY1XkEyXkFqcGc@._V1_SX300.jpg",
+    },
+    {
+      id: 5,
+      name: "Matin Scorsese",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BYTc1MDQ3NjAtOWEzMi00YzE1LWI2OWUtNjQ0OWJkMzI3MDhmXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg",
+    },
+    {
+      id: 6,
+      name: "Quentin Tarantino",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_SX300.jpg",
+    },
+    {
+      id: 7,
+      name: "Christopher Nolan",
+      cover:
+        "https://m.media-amazon.com/images/M/MV5BNzRiMjg0MzUtNTQ1Mi00Y2Q5LWEwM2MtMzUwZDU5NmVjN2NkXkEyXkFqcGc@._V1_SX300.jpg",
+    },
     // { id: 8, name: "Guy Ritchie", cover: guyRitchie },
   ]);
   const [directorMovies, setDirectorMovies] = useState("tt0110912");
@@ -51,7 +86,7 @@ function SugDirectors() {
     <div className="directors-container py-2">
       {/* <div className="container-content"> */}
       <div className="directors-content">
-        <h2>Directors Suggestion</h2>
+        <h2>Trending</h2>
         <div className="directors">
           <ul>
             {directors.map((director) => (
@@ -63,7 +98,7 @@ function SugDirectors() {
         </div>
         {/* </div> */}
       </div>
-      <div className="suggestions-container">
+      {/* <div className="suggestions-container">
         {directorMovie && (
           <div className="suggestions-list-container">
             <ul>
@@ -86,7 +121,7 @@ function SugDirectors() {
             </ul>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

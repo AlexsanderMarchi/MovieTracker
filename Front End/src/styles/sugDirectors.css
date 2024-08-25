@@ -30,11 +30,12 @@
   gap: 1.5rem;
   list-style: none;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .directors-container .directors-content .directors .directors-lista {
   box-shadow: inset 0rem -5rem 0.6rem #000000;
-  min-width: 15rem;
+  min-width: 10rem;
   height: 100%;
   overflow: hidden;
   z-index: 0;
