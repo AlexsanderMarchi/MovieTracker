@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Header from "../components/header";
 import Showcase from "../components/showcase";
 import Footer from "../components/footer";
-import SugDirectors from "../components/SugDirectors";
+import SugMovies from "../components/SugMovies";
 import { MovieContext } from "../contexts/movieContext";
 import {
   useFetchSearchedMovie,
@@ -71,7 +71,7 @@ function Home() {
         handleClickOnMovie={handleClickOnMovie}
       />
       <Showcase />
-      <SugDirectors />
+      <SugMovies handleClickOnMovie={handleClickOnMovie} />
       <Footer />
     </>
   );

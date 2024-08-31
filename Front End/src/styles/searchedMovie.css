@@ -156,10 +156,12 @@
   position: relative;
   cursor: pointer;
   display: flex;
+  height: 100%;
 }
 .suggestions-container .suggestions-list-container ul li img {
   width: 8rem;
   max-height: 13rem;
+  object-fit: cover;
 }
 
 .suggestions-list-container ul li .poster-content .suggestion-name {
