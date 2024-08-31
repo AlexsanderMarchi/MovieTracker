@@ -37,11 +37,8 @@
 #header-main nav .flex-row-content > h1 {
   cursor: pointer;
   text-shadow: 1px 9px 13px rgba(0, 0, 0, 0.5);
-  /* background: linear-gradient(to right, #98b500, #d4ff00);
-  -webkit-background-clip: text;
-  color: transparent; */
 }
-#header-main nav .flex-row-content h1 span {
+#header-main nav .flex-row-content h1 span:hover {
   color: var(--main-green);
 }
 
@@ -132,6 +129,9 @@
     background-color: #131313;
     box-shadow: inset 0px 0px 2rem #1a1a1a;
   }
+  #header-main nav .flex-row-content > h1 {
+    font-size: 18px;
+  }
   #header-main .navbar {
     height: 2.7rem;
   }
@@ -150,7 +150,11 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 520px) {
+  #header-main nav .flex-row-content > h1 {
+    font-size: 14px;
+    text-align: center;
+  }
 }
 @media (max-width: 300px) {
 }

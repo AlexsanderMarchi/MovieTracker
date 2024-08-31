@@ -37,9 +37,9 @@ function Showcase() {
     <div id="showcase-main">
       <div className="container-content">
         <div className="showcase-content-container">
-          <h1>
+          <h2>
             <span className="txt">{text}</span> MOVIES & SERIES
-          </h1>
+          </h2>
         </div>
       </div>
     </div>

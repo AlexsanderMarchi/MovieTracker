@@ -33,6 +33,18 @@
   overflow-y: hidden;
 }
 
+.sugMovies-container .sugMovies-content .sugMovies ul::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+  background: #181818;
+  border-radius: 10px;
+}
+
+.sugMovies-container .sugMovies-content .sugMovies ul::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
+}
+
 .sugMovies-container .sugMovies-content .sugMovies .sugMovies-lista {
   box-shadow: inset 0rem -5rem 0.6rem #000000;
   min-width: 10rem;
@@ -51,4 +63,10 @@
 
 .sugMovies-container .sugMovies-content .sugMovies .sugMovies-lista img:hover {
   filter: brightness(90%);
+}
+
+@media (max-height: 660px) {
+  .sugMovies-container {
+    height: 68vh;
+  }
 }
